@@ -63,9 +63,6 @@ for (let i = 0 ; i < buttons.length ; i++){
     buttons[i].addEventListener('click', playGame);
 }
 
-//function playRound tested successfully in console (with manually entered choices)
-//scoring doesn't work properly
-
 function playRound(playerChoice, computerChoice) {
   if (playerChoice === computerChoice){
     document.getElementById("victor").innerHTML = "It's a tie!";
