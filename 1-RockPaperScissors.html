@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+  <title> Rock, Paper, Scissors </title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href=https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css>
+
+    <style>
+
+    body{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      align-content: center;
+    }
+
+    #playerScore, #computerScore{
+      display: inline-block;
+    }
+
+    </style>
+
+
+</head>
+
+  <body>
+
+    <h1 style="margin-top:100px;font-size:80px;"> Arena </h1>
+
+    <div style="margin:20px;">
+      <p style="font-size:40px;" id="playerScore"><strong> Player </strong> 0 </p>
+      <p style="font-size:40px;" id="computerScore"> 0 <strong> Computer </strong> </p>
+    </div>
+
+    <div style="font-size:30px;">
+      <button style= "background-color: LightCoral;" id="rockButton"> Rock </button>
+      <button style= "background-color: LightGreen;" id="paperButton"> Paper </button>
+      <button style= "background-color: LightSkyBlue;" id="scissorsButton"> Scissors </button>
+    </div>
+
+    <div style='font-size:40px;' class='score'>
+
+    </div>
+    <div style='font-size:40px; margin-top:20px;' class='message'>
+
+    </div>
+
+    <div style="font-size:20px; margin-top:20px;" id="victor">
+
+    </div>
+
+      <script>
+
+const choices = ['Rock','Paper','Scissors'];
+const buttons = document.querySelectorAll('button');
+const message = document.querySelector('.message');
+const score = document.querySelector('.score');
+const scores = [0,0];
+
+for (let i = 0 ; i < buttons.length ; i++){
+    buttons[i].addEventListener('click', playGame);
+}
+
+//function playRound tested successfully in console (with manually entered choices)
+//scoring doesn't work properly
+
+function playRound(playerChoice, computerChoice) {
+  if (playerChoice === computerChoice){
+    document.getElementById("victor").innerHTML = "It's a tie!";
+  }
+  else if (playerChoice === 'Rock'){
+    if (computerChoice === 'Paper'){
+      document.getElementById("victor").innerHTML = 'you lose! Paper beats Rock!';
+      scores[1] += 1;
+    }
+    else {
+      document.getElementById("victor").innerHTML = 'you win! Rock beats Scissors!';
+      scores[0] += 1;
+    }
+  }
+  else if (playerChoice === 'Paper'){
+    if (computerChoice === 'Scissors'){
+      document.getElementById("victor").innerHTML = 'you lose! Scissors beats Paper!';
+      scores[1] += 1;
+    }
+    else{
+      document.getElementById("victor").innerHTML = 'you win! Paper beats Rock!';
+      scores[0] += 1;
+    }
+  }
+  else {
+    if (computerChoice === 'Rock'){
+      document.getElementById("victor").innerHTML = 'you lose! Rock beats Scissors!';
+      scores[1] += 1;
+    }
+    else{
+      document.getElementById("victor").innerHTML = 'you win! Scissors beats Paper!';
+      scores[0] += 1;
+    }
+  }
+}
+
+function playGame(e){
+  let playerChoice = e.target.innerText;
+  let computerChoice = choices[Math.floor(Math.random()*choices.length)];
+
+  //on button click, computer should select random number
+  //random number is converted to rock/paper/scissors via array index
+
+  playRound(playerChoice, computerChoice);
+
+  document.getElementById("playerScore").innerHTML = '<strong> Player </strong>' + scores[0] ;
+  document.getElementById("computerScore").innerHTML = scores[1] + '<strong> Computer</strong>';
+  //output player and computer's selections
+  messenger('<strong>' + playerChoice + '</strong> VS <strong>' + computerChoice + '</strong><br>');
+  }
+
+  function messenger(selectionMessage){
+  message.innerHTML = selectionMessage;
+  }
+
+
+    </script>
+
+  </body>
+
+</html>
